@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 
     public bool IsGameOver(int player, int rival)
     {
-        return player + rival == 1;
+        return player + rival == 31;
     }
 
     void SetCount()
