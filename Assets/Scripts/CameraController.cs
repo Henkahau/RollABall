@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class CameraController : MonoBehaviour {
@@ -19,6 +20,7 @@ public class CameraController : MonoBehaviour {
     {
         Input.gyro.enabled = true;
         playerCount = 0;
+        SetCount();
 
         //cam = GameObject.FindGameObjectWithTag("MainCamera");
 
@@ -42,15 +44,14 @@ public class CameraController : MonoBehaviour {
                            Input.GetAxis("Vertical") * camMovingSpeed * Time.deltaTime);
 #endif
 
-        /*if camera gets really messed up for some reason...
-        ******
+        /**** tapping screen with 3 fingers restarts the game
+        ******/
         if (Input.touchCount == 3)
         {
-            transform.rotation = adjustRotation;
-            
-        }
-        ******/
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 
+        }
+        
 
         // moves camera forward automatically
         //transform.position = transform.position + 
@@ -58,7 +59,7 @@ public class CameraController : MonoBehaviour {
         //    0,
         //    cam.transform.forward.z * camMovingSpeed * Time.deltaTime) ;
 
-        //tilting phone will move the camera by accelometer
+        //tilting phone will move the camera by accelerometer
         transform.Translate( 0, 0, -Input.acceleration.z * camMovingSpeed * Time.deltaTime);
 
         //rotates camera by gyro
@@ -70,7 +71,7 @@ public class CameraController : MonoBehaviour {
     private void GyroModifyCamera()
     {   
         //uses only y-axel for rotating camera because tilting camera is not possible if 
-        //accelometer is used for moving the camera forward/backwards
+        //accelerometer is used for moving the camera forward/backwards
         transform.Rotate(/*-Input.gyro.rotationRate.x*/0, -Input.gyro.rotationRate.y, 0);
     }
 

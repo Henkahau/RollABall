@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 
     public bool IsGameOver(int player, int rival)
     {
-        return player + rival == 31;
+        return player + rival == 1;
     }
 
     void SetCount()
@@ -74,9 +74,9 @@ public class PlayerController : MonoBehaviour {
         if (IsGameOver(CameraController.playerCount, count))
         {
             if (ChooseWinner())
-                winText.text = "You win!";
+                winText.text = "You win!" + Environment.NewLine + "Tap the screen for replay" + Environment.NewLine + "with three fingers";
             else
-                winText.text = "You lose!";
+                winText.text = "You lose!" + Environment.NewLine + "Tap the screen for replay" + Environment.NewLine + "with three fingers";
         }
             
     }
