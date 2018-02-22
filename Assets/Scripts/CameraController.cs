@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour {
         //cam = GameObject.FindGameObjectWithTag("MainCamera");
 
 
-        /*** if using more than one gyroscope axel for moving the camera,
+        /*** if using more than one gyroscope axis for moving the camera,
          * this can be used for reset the camera view if it gets messed up
          * **/
         //adjustRotation = Quaternion.Euler(90f, 0f, 0f) * Quaternion.Inverse(Input.gyro.attitude);
@@ -70,7 +70,7 @@ public class CameraController : MonoBehaviour {
 
     private void GyroModifyCamera()
     {   
-        //uses only y-axel for rotating camera because tilting camera is not possible if 
+        //uses only y-axis for rotating camera because tilting camera is not possible if 
         //accelerometer is used for moving the camera forward/backwards
         transform.Rotate(/*-Input.gyro.rotationRate.x*/0, -Input.gyro.rotationRate.y, 0);
     }
