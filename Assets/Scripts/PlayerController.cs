@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     public Text winText;
 
     private Rigidbody rb;
-    GameObject[] pickUps;
+    
     
 
     private void Start()
@@ -33,9 +33,10 @@ public class PlayerController : MonoBehaviour {
     {  
         if (!IsGameOver(CameraController.playerCount, count))
         {
+            //Moves the ball to the target position
             transform.position = Vector3.MoveTowards( transform.position,
                                                     FindClosesPickUp().transform.position,
-                                                    speed );
+                                                    speed * Time.deltaTime);
         }
             
         else
@@ -62,28 +63,38 @@ public class PlayerController : MonoBehaviour {
         return CameraController.playerCount > count;
     }
 
-    public bool IsGameOver(int player, int rival)
+    private bool IsGameOver(int player, int rival)
     {
         return player + rival == 31;
     }
 
     void SetCount()
     {   
-        countText.text = "Rival Points " + count;
+        countText.text = "Rival points " + count;
 
         if (IsGameOver(CameraController.playerCount, count))
         {
             if (ChooseWinner())
-                winText.text = "You win!" + Environment.NewLine + "Tap the screen for replay" + Environment.NewLine + "with three fingers";
+            {
+                winText.text = "You win!" + Environment.NewLine + 
+                    "Tap the screen for replay" + Environment.NewLine + "with three fingers";
+            }
+               
             else
-                winText.text = "You lose!" + Environment.NewLine + "Tap the screen for replay" + Environment.NewLine + "with three fingers";
+            {
+                winText.text = "You lose!" + Environment.NewLine +
+                   "Tap the screen for replay" + Environment.NewLine + "with three fingers";
+
+            }
+               
         }
             
     }
 
 
-   public GameObject FindClosesPickUp()
+   private GameObject FindClosesPickUp()
     {
+        GameObject[] pickUps;
         pickUps = GameObject.FindGameObjectsWithTag("Pick Up");
         GameObject closestPU = null;
         float distance = Mathf.Infinity;
